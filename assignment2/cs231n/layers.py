@@ -42,8 +42,8 @@ def affine_backward(dout, cache):
     Computes the backward pass for an affine layer.
 
     Inputs:
-    - dout: Upstream derivative, of shape (N, M)
     - cache: Tuple of:
+    - dout: Upstream derivative, of shape (N, M)
       - x: Input data, of shape (N, d_1, ... d_k)
       - w: Weights, of shape (D, M)
 
@@ -57,7 +57,11 @@ def affine_backward(dout, cache):
     ###########################################################################
     # TODO: Implement the affine backward pass.                               #
     ###########################################################################
-    pass
+    x_shape = x.shape
+    x = np.reshape(x, (x_shape[0], -1))  # N*D
+    dx = np.dot(dout, w.T).reshape(x_shape)
+    dw = np.dot(x.T, dout)
+    db = np.sum(dout, axis=0)
     ###########################################################################
     #                             END OF YOUR CODE                            #
     ###########################################################################
