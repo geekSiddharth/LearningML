@@ -26,7 +26,7 @@ def affine_forward(x, w, b):
     ###########################################################################
 
     # x_row is N, (D=(d_1 * ... * d_k))
-    x_row = [y.flatten() for y in x]
+    x_row = np.reshape(x, (x.shape[0], -1))
 
     out = np.dot(x_row, w) + b
 
